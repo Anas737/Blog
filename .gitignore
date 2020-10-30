@@ -1,0 +1,72 @@
+# compiled output
+/client/dist
+/client/tmp
+/client/out-tsc
+
+/api/dist
+
+# Only exists if Bazel was run
+/client/bazel-out
+
+# dependencies
+/client/node_modules
+/api/node_modules
+
+# profiling files
+/client/chrome-profiler-events*.json
+/client/speed-measure-plugin*.json
+
+# Logs
+/api/logs
+/api/*.log
+/api/npm-debug.log*
+/api/yarn-debug.log*
+/api/yarn-error.log*
+/api/lerna-debug.log*
+
+# OS
+/api/.DS_Store
+
+# Tests
+/api/coverage
+/api/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+/client/.vscode/*
+/client/!.vscode/settings.json
+/client/!.vscode/tasks.json
+/client/!.vscode/launch.json
+/client/!.vscode/extensions.json
+/client/.history/*
+
+/api/.vscode/*
+/api/!.vscode/settings.json
+/api/!.vscode/tasks.json
+/api/!.vscode/launch.json
+/api/!.vscode/extensions.json
+
+# misc
+/client/.sass-cache
+/client/connect.lock
+/client/coverage
+/client/libpeerconnection.log
+/client/npm-debug.log
+/client/yarn-error.log
+/client/testem.log
+/client/typings
+
+# System Files
+/client/.DS_Store
+/client/Thumbs.db
+
+/api/.env
+/design

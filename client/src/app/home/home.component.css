@@ -1,0 +1,38 @@
+#home {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.home__header {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 1rem 7rem;
+}
+
+.home__header .home__btn:last-child {
+  margin-left: 1rem;
+}
+
+.home__btn {
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.home__section {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home__section img {
+  width: 70%;
+}

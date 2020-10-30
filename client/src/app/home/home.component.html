@@ -1,0 +1,20 @@
+<div id="home">
+  <header class="home__header">
+    <button class="home__btn btn bg-purple" (click)="triggerLogIn()">
+      Log in
+    </button>
+    <button class="home__btn btn bg-green" (click)="triggerSignUp()">
+      Sign up
+    </button>
+  </header>
+  <section class="home__section">
+    <img src="../../assets/images/home_img.svg" />
+  </section>
+
+  <app-signup
+    *ngIf="isSignUpOpened"
+    (onCloseSignUp)="triggerSignUp()"
+  ></app-signup>
+
+  <app-login *ngIf="isLogInOpened" (onCloseLogIn)="triggerLogIn()"></app-login>
+</div>

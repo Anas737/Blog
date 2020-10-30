@@ -1,0 +1,16 @@
+#feed {
+  padding-top: 5rem;
+}
+
+.feed__title::after {
+  content: "-";
+  display: inline-block;
+}
+
+.posts-container {
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

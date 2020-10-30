@@ -1,0 +1,37 @@
+<app-modal>
+  <div class="form-container">
+    <form class="form" (ngSubmit)="login()">
+      <!-- Close button -->
+      <button type="button" (click)="closeLogIn()" class="form__close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- Email -->
+      <fieldset class="form__email">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          [(ngModel)]="email"
+          [attr.data-empty]="email ? 'false' : 'true'"
+        />
+        <label for="email">Email</label>
+      </fieldset>
+
+      <!-- Password -->
+      <fieldset class="form__password">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="password"
+          [attr.data-empty]="password ? 'false' : 'true'"
+        />
+        <label for="password">Password</label>
+      </fieldset>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn bg-green form__submit">Log In</button>
+    </form>
+  </div>
+</app-modal>

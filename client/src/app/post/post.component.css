@@ -1,0 +1,94 @@
+.post-container {
+  width: 700px;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "post author"
+    "footer author";
+
+  margin: 1rem;
+}
+
+.post {
+  grid-area: post;
+
+  padding: 1.7rem;
+}
+
+.post__title {
+  margin-bottom: 1rem;
+
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.post__content {
+  line-height: 1.8rem;
+  font-size: 0.85rem;
+}
+
+.post__author {
+  grid-area: author;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--primary-purple);
+
+  padding: 1rem;
+}
+
+.post__author a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-decoration: none;
+  color: white;
+}
+
+.author__imagecontainer {
+  width: 70px;
+  height: 70px;
+}
+
+.author__imagecontainer img {
+  width: 100%;
+}
+
+.author__username {
+  margin-top: 0.1rem;
+}
+
+.author__follow-btn {
+  margin-top: 1rem;
+  padding-left: 2.2rem;
+  padding-right: 2.2rem;
+
+  font-weight: bold;
+}
+
+footer {
+  font-size: 0.8rem;
+  font-weight: bold;
+
+  grid-area: footer;
+
+  background-color: rgba(0, 0, 0, 0.1);
+  padding-left: 1.7rem;
+}
+
+ul {
+  list-style-type: none;
+
+  display: flex;
+
+  padding: 0.3rem 0rem;
+}
+
+ul li {
+  margin-right: 1rem;
+}

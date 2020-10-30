@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1687" height="673" viewBox="0 0 1687 673">
+  <g id="Group_15" data-name="Group 15" transform="translate(-117 -240)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="300" cy="300" r="300" transform="translate(430 240)" fill="#662c91"/>
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="300" cy="300" r="300" transform="translate(924 313)" fill="#17a398"/>
+    <text id="Stay_connected_with_your_friends_" data-name="Stay connected with your friends !" transform="translate(117 633)" fill="#fff" font-size="35" font-family="Montserrat-Regular, Montserrat"><tspan x="544.565" y="34">Stay connected with your friends !</tspan></text>
+    <g id="Group_3" data-name="Group 3" transform="translate(478 541)">
+      <g id="Group_8" data-name="Group 8">
+        <g id="Group_1" data-name="Group 1" transform="translate(88 -1)">
+          <text id="Social" transform="translate(57 67)" fill="#fff" font-size="150" font-family="Montserrat-Bold, Montserrat" font-weight="700" letter-spacing="-0.09em"><tspan x="0" y="0">Social</tspan></text>
+          <text id="Media" transform="translate(431 67)" fill="#662c91" font-size="100" font-family="Montserrat-Regular, Montserrat" letter-spacing="-0.09em"><tspan x="0" y="0">Media</tspan></text>
+        </g>
+      </g>
+      <g id="Group_2" data-name="Group 2" transform="matrix(0.839, -0.545, 0.545, 0.839, 572.639, -191.097)">
+        <path id="Path_1" data-name="Path 1" d="M9.4.026c3.345-.363,5.845,3.1,5.582,7.728L12.133,58.061C11.871,62.692,8.947,66.74,5.6,67.1s-5.845-3.1-5.582-7.728L2.867,9.068C3.129,4.437,6.053.389,9.4.026Z" transform="translate(129.985 229.501) rotate(45)" fill="#fff"/>
+        <path id="Path_2" data-name="Path 2" d="M4.911.054c3.049.527,5.81,4.751,6.167,9.434l3.883,50.878c.357,4.683-1.824,8.052-4.873,7.525s-5.81-4.751-6.167-9.434L.038,7.579C-.319,2.9,1.863-.473,4.911.054Z" transform="matrix(-0.643, 0.766, -0.766, -0.643, 146.729, 273.938)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

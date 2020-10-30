@@ -1,0 +1,49 @@
+<app-modal>
+  <div class="form-container">
+    <form class="form" (ngSubmit)="register()">
+      <!-- Close button -->
+      <button type="button" (click)="closeSignUp()" class="form__close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- Email -->
+      <fieldset class="form__email">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          [(ngModel)]="email"
+          [attr.data-empty]="email ? 'false' : 'true'"
+        />
+        <label for="email">Email</label>
+      </fieldset>
+
+      <!-- Username -->
+      <fieldset class="from__username">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          [(ngModel)]="username"
+          [attr.data-empty]="username ? 'false' : 'true'"
+        />
+        <label for="username">Username</label>
+      </fieldset>
+
+      <!-- Password -->
+      <fieldset class="form__password">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="password"
+          [attr.data-empty]="password ? 'false' : 'true'"
+        />
+        <label for="password">Password</label>
+      </fieldset>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn bg-green form__submit">Sign Up</button>
+    </form>
+  </div>
+</app-modal>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="63" viewBox="0 0 121 74">
+  <g id="Group_9" data-name="Group 9" transform="translate(-54 -6)">
+    <path id="Path_6" data-name="Path 6" d="M33,0A33,33,0,1,1,0,33,33,33,0,0,1,33,0Z" transform="translate(54 6)" fill="#662c91"/>
+    <path id="Path_5" data-name="Path 5" d="M33.5,0C52,0,67,14.775,67,33S52,66,33.5,66,0,51.225,0,33,15,0,33.5,0Z" transform="translate(108 14)" fill="#17a398"/>
+    <g id="Group_3" data-name="Group 3" transform="translate(75.275 30.472)">
+      <g id="Group_8" data-name="Group 8" transform="translate(0 0)">
+        <g id="Group_1" data-name="Group 1">
+          <text id="Social" transform="translate(-0.275 14.528)" fill="#fff" font-size="16" font-family="Montserrat-Bold, Montserrat" font-weight="700" letter-spacing="-0.09em"><tspan x="0" y="0">Social</tspan></text>
+          <text id="Media" transform="translate(41.725 15.528)" fill="#fff" font-size="10" font-family="Montserrat-Regular, Montserrat" letter-spacing="-0.09em"><tspan x="0" y="0">Media</tspan></text>
+        </g>
+      </g>
+      <g id="Group_2" data-name="Group 2" transform="matrix(0.839, -0.545, 0.545, 0.839, 68.547, 3.906)">
+        <path id="Path_1" data-name="Path 1" d="M1.036,0c.369-.04.644.341.615.852L1.337,6.4a1.009,1.009,0,0,1-.72,1c-.369.04-.644-.341-.615-.852L.316,1A1.009,1.009,0,0,1,1.036,0Z" transform="translate(5.232 0) rotate(45)" fill="#fff"/>
+        <path id="Path_2" data-name="Path 2" d="M.541.006c.336.058.64.524.68,1.04l.428,5.609c.039.516-.2.888-.537.83s-.64-.524-.68-1.04L0,.836C-.035.319.205-.052.541.006Z" transform="matrix(-0.643, 0.766, -0.766, -0.643, 7.078, 4.898)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

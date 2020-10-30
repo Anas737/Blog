@@ -1,0 +1,35 @@
+<div class="nav-container">
+  <nav class="bg-purple">
+    <img src="./../../assets/images/logo.svg" alt="social media logo" />
+
+    <input type="search" placeholder="Search" class="nav__search" />
+
+    <section class="nav__profile">
+      <a href="#">
+        <span class="profile__username">John Doe</span>
+        <span class="profile__imagecontainer image-container">
+          <img
+            src="../../assets/images/user2.png"
+            alt="user profile image"
+          /> </span
+      ></a>
+
+      <span
+        class="profile__btn"
+        [ngClass]="{ 'profile__btn--open': opened }"
+        (click)="triggerMenu()"
+      ></span>
+    </section>
+  </nav>
+  <ul
+    class="nav__menu"
+    [ngClass]="{ 'nav__menu--open': opened, 'nav__menu--close': !opened }"
+  >
+    <li>
+      <a href="#">Settings</a>
+    </li>
+    <li>
+      <a href="#">Logout</a>
+    </li>
+  </ul>
+</div>
