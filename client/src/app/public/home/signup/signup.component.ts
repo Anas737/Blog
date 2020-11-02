@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from 'src/app/core';
 
 @Component({
   selector: 'app-signup',

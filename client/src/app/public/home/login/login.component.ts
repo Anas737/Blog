@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { LoginUserDTO } from '../dto/login-user.dto';
+import { AuthService } from 'src/app/core';
 
 @Component({
   selector: 'app-login',
@@ -19,16 +18,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService
-      .login({
-        email: this.email,
-        password: this.password,
-      })
-      .subscribe((response) => {
-        console.log(response);
-
-        this.closeLogIn();
-      });
+    this.authService.login({
+      email: this.email,
+      password: this.password,
+    });
   }
 
   closeLogIn() {

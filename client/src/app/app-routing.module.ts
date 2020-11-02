@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FeedComponent } from './feed/feed.component';
-import { HomeComponent } from './home/home.component';
+import { ProtectedComponent } from './protected/protected.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'feed', component: FeedComponent },
+  {
+    path: '',
+    loadChildren: () => import('./protected').then((m) => m.ProtectedModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./public/home').then((m) => m.HomeModule),
+  },
 ];
 
 @NgModule({

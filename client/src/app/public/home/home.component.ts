@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   triggerSignUp() {
+    console.log('Trigger');
     this.isSignUpOpened = !this.isSignUpOpened;
   }
 
