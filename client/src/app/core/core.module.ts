@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpHeaderInterceptorProvider } from './interceptors';
+import { JwtService } from './auth/jwt/jwt.service';
 
-@NgModule()
+@NgModule({
+  imports: [HttpClientModule],
+  providers: [JwtService, HttpHeaderInterceptorProvider],
+})
 export class CoreModule {}

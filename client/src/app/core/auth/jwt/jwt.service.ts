@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from '../../core.module';
 
-@Injectable({
-  providedIn: CoreModule,
-})
+@Injectable()
 export class JwtService {
   getToken(): string {
     return window.localStorage.getItem('jwtToken');

@@ -27,18 +27,20 @@ export class ApiService {
   }
 
   post(route: string, body: Object = {}): Observable<any> {
-    return this.post(this.getPath(route), body).pipe(
-      catchError(this.formatErrors)
-    );
+    return this.http
+      .post(this.getPath(route), body)
+      .pipe(catchError(this.formatErrors));
   }
 
   put(route: string, body: Object = {}): Observable<any> {
-    return this.put(this.getPath(route), body).pipe(
-      catchError(this.formatErrors)
-    );
+    return this.http
+      .put(this.getPath(route), body)
+      .pipe(catchError(this.formatErrors));
   }
 
   delete(route: string): Observable<any> {
-    return this.delete(this.getPath(route)).pipe(catchError(this.formatErrors));
+    return this.http
+      .delete(this.getPath(route))
+      .pipe(catchError(this.formatErrors));
   }
 }

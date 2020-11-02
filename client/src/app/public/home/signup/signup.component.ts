@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from 'src/app/core';
+import { AuthService } from '../../../core';
 
 @Component({
   selector: 'app-signup',
@@ -21,9 +21,11 @@ export class SignupComponent implements OnInit {
   register() {
     this.authService
       .register({
-        email: this.email,
-        username: this.username,
-        password: this.password,
+        user: {
+          email: this.email,
+          username: this.username,
+          password: this.password,
+        },
       })
       .subscribe((response) => {
         console.log(response);
