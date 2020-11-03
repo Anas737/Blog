@@ -23,7 +23,15 @@ export class PostController {
   @UseGuards(JwtAuthGuard)
   @Get('posts/feed')
   async getFeed(@User() user: UserDocument, @Query() query: any) {
-    return await this.postService.findFeed(user, query);
+    const feed = await this.postService.findFeed(user, query);
+
+    const response = [];
+
+    feed.forEach(post => {
+      response.push(post.toResponse(user.username));
+    });
+
+    return response;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -40,10 +48,7 @@ export class PostController {
 
   @UseGuards(JwtAuthGuard)
   @Post('posts/create')
-  async create(
-    @User() user: UserDocument,
-    @Body('post') postData: CreatePostDTO,
-  ) {
+  async create(@User() user: UserDocument, @Body() postData: CreatePostDTO) {
     return await this.postService.create(user, postData);
   }
 
@@ -52,7 +57,7 @@ export class PostController {
   async update(
     @User() user: UserDocument,
     @Param('postId') postId: string,
-    @Body('post') postData: CreatePostDTO,
+    @Body() postData: CreatePostDTO,
   ) {
     return await this.postService.update(user, postId, postData);
   }
@@ -74,7 +79,7 @@ export class PostController {
   async addComment(
     @User() user: UserDocument,
     @Param('postId') postId: string,
-    @Body('comment') comment: CreateCommentDTO,
+    @Body() comment: CreateCommentDTO,
   ) {
     return await this.postService.addComment(user, postId, comment);
   }
@@ -84,7 +89,7 @@ export class PostController {
   async updateComment(
     @User() user: UserDocument,
     @Param('commentId') commentId: string,
-    @Body('comment') commentData: CreateCommentDTO,
+    @Body() commentData: CreateCommentDTO,
   ) {
     return await this.postService.editComment(user, commentId, commentData);
   }

@@ -64,7 +64,7 @@ export class PostsService {
 
     const ids = followings.map(following => following.id);
 
-    return this.postModel
+    return await this.postModel
       .find({
         author: {
           $in: ids,
@@ -72,7 +72,8 @@ export class PostsService {
       })
       .sort({ createdAt: 'DESC' })
       .skip(parseInt(query.offset))
-      .limit(parseInt(query.limit));
+      .limit(parseInt(query.limit))
+      .populate('author', 'username image followers');
   }
 
   async create(

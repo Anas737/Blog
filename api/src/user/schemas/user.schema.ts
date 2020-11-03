@@ -59,12 +59,10 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.methods.toResponse = function(token = '') {
   const response = {
-    user: {
-      email: this.email,
-      username: this.username,
-      bio: this.bio,
-      image: this.image,
-    },
+    email: this.email,
+    username: this.username,
+    bio: this.bio,
+    image: this.image,
   };
 
   if (token) {

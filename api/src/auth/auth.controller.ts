@@ -12,15 +12,15 @@ export class AuthController {
   ) {}
 
   @Post()
-  async register(@Body('user') userData: RegisterUserDTO) {
+  async register(@Body() userData: RegisterUserDTO) {
     const user = await this.userService.create(userData);
 
     return user.toResponse();
   }
 
   @Post('login')
-  async login(@Body('user') userData: LoginUserDTO) {
-    const user = await this.userService.findByPayload(userData);
+  async login(@Body() userData: LoginUserDTO) {
+    const user = await this.authService.login(userData);
 
     const payload = { email: user.email };
     const token = this.authService.signPayload(payload);

@@ -29,9 +29,7 @@ export class UsersService {
     return user;
   }
 
-  async findByPayload(payload: JwtPayload): Promise<UserDocument> {
-    const { email } = payload;
-
+  async findByEmail(email: string): Promise<UserDocument> {
     const user = await this.userModel.findOne({
       email,
     });
@@ -39,6 +37,12 @@ export class UsersService {
     if (!user) this.throwUserDoesntExit();
 
     return user;
+  }
+
+  async findByPayload(payload: JwtPayload): Promise<UserDocument> {
+    const { email } = payload;
+
+    return this.findByEmail(email);
   }
 
   async findAll(): Promise<UserDocument[]> {

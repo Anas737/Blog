@@ -34,6 +34,27 @@ export class Post {
 
   @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Comment' }])
   comments: Types.ObjectId[];
+
+  toResponse: any;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
+
+PostSchema.methods.toResponse = function(currentUsername: string) {
+  const response = {
+    title: this.title,
+    content: this.content,
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt,
+    author: {
+      username: this.author.username,
+      image: this.author.image,
+      following: this.author.followers.some(
+        follower => follower.username === currentUsername,
+      ),
+    },
+    comments: this.comments,
+  };
+
+  return response;
+};
