@@ -1,11 +1,13 @@
 <div class="nav-container">
   <nav class="bg-purple">
-    <img src="./../../assets/images/logo.svg" alt="social media logo" />
+    <a routerLink="/feed"
+      ><img src="./../../assets/images/logo.svg" alt="social media logo"
+    /></a>
 
     <input type="search" placeholder="Search" class="nav__search" />
 
     <section class="nav__profile">
-      <a href="#">
+      <a routerLink="/profile">
         <span class="profile__username">John Doe</span>
         <span class="profile__imagecontainer image-container">
           <img
@@ -29,7 +31,7 @@
       <a href="#">Settings</a>
     </li>
     <li>
-      <a href="#">Logout</a>
+      <a routerLink="/home" (click)="logout()">Logout</a>
     </li>
   </ul>
 </div>

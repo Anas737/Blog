@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { CoreModule } from '../core.module';
 import { UserService } from '../user/user.service';
 import { JwtService } from './jwt';
@@ -15,6 +15,12 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService
   ) {}
+
+  get isAuthenticated(): Observable<boolean> {
+    return this.isAuthenticatedSubject
+      .asObservable()
+      .pipe(distinctUntilChanged());
+  }
 
   register(credentials: any): Observable<any> {
     return this.userService.register(credentials);
@@ -42,16 +48,19 @@ export class AuthService {
   }
 
   attemptAuth() {
-    if (!this.jwtService.getToken()) {
+    const token = this.jwtService.getToken();
+
+    if (!token) {
       this.purgeAuth();
 
       return;
     }
 
+    this.setAuth(token);
+
     this.userService.get().subscribe(
       (response) => {
-        this.setAuth(response.user);
-        console.log(response);
+        this.userService.setUser(response.user);
       },
       (err) => {
         this.purgeAuth();

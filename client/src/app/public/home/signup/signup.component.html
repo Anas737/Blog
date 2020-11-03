@@ -1,6 +1,6 @@
 <app-modal>
   <div class="form-container">
-    <form class="form" (ngSubmit)="register()">
+    <form [formGroup]="signUpForm" class="form" (ngSubmit)="register()">
       <!-- Close button -->
       <button type="button" (click)="closeSignUp()" class="form__close-btn">
         <i class="fas fa-times"></i>
@@ -12,11 +12,20 @@
           type="email"
           name="email"
           id="email"
-          [(ngModel)]="email"
-          [attr.data-empty]="email ? 'false' : 'true'"
+          formControlName="email"
+          [attr.data-empty]="isEmailEmpty"
         />
         <label for="email">Email</label>
       </fieldset>
+
+      <!-- Email Errors -->
+      <div
+        *ngIf="(email.dirty || email.touched) && email.invalid"
+        class="form__error"
+      >
+        <p *ngIf="email.errors?.required">- Email is required</p>
+        <p *ngIf="email.errors?.hasEmailError">- Incorrect email format</p>
+      </div>
 
       <!-- Username -->
       <fieldset class="from__username">
@@ -24,11 +33,19 @@
           type="text"
           name="username"
           id="username"
-          [(ngModel)]="username"
-          [attr.data-empty]="username ? 'false' : 'true'"
+          formControlName="username"
+          [attr.data-empty]="isUsernameEmpty"
         />
         <label for="username">Username</label>
       </fieldset>
+
+      <!-- Username errors -->
+      <div
+        *ngIf="(username.dirty || username.touched) && username.invalid"
+        class="form__error"
+      >
+        <p *ngIf="username.errors?.required">- Username is required</p>
+      </div>
 
       <!-- Password -->
       <fieldset class="form__password">
@@ -36,11 +53,34 @@
           type="password"
           name="password"
           id="password"
-          [(ngModel)]="password"
-          [attr.data-empty]="password ? 'false' : 'true'"
+          formControlName="password"
+          [attr.data-empty]="isPasswordEmpty"
         />
         <label for="password">Password</label>
       </fieldset>
+
+      <!-- Password errors -->
+      <div
+        *ngIf="(password.dirty || password.touched) && password.invalid"
+        class="form__error"
+      >
+        <p *ngIf="password.errors?.required">Password is required</p>
+        <p *ngIf="password.errors?.hasMinLengthError">
+          - Password must contain at least 8 characters
+        </p>
+        <p *ngIf="password.errors?.hasMinNumberError">
+          - Password must contain at least 2 numbers
+        </p>
+        <p *ngIf="password.errors?.hasMinUpperError">
+          - Password must contain at least 1 uppercase
+        </p>
+        <p *ngIf="password.errors?.hasMinLowerError">
+          - Password must contain at least 1 lowercase
+        </p>
+        <p *ngIf="password.errors?.hasSpecialCharacterError">
+          - Password must contain at least 1 special character
+        </p>
+      </div>
 
       <!-- Submit button -->
       <button type="submit" class="btn bg-green form__submit">Sign Up</button>

@@ -14,7 +14,7 @@ nav {
 }
 
 nav img {
-  width: 7%;
+  width: 70%;
 }
 
 .nav__search {
@@ -72,12 +72,12 @@ nav img {
   border-left: 0.3rem solid var(--primary-purple);
   border-bottom: 0.3rem solid var(--primary-purple);
 
-  transform: rotate3d(0, 0, 1, 45deg);
+  transform: rotate3d(0, 0, 1, -45deg);
   transition: transform 0.3s ease-out;
 }
 
 .profile__btn--open {
-  transform: rotate3d(0, 0, 1, -45deg);
+  transform: rotate3d(0, 0, 1, 45deg);
 }
 
 .nav__menu {
@@ -107,9 +107,6 @@ nav img {
   transform: translateY(84px);
 }
 
-.nav__menu li {
-  padding: 0.7rem;
-}
 .nav__menu li:hover {
   background-color: var(--primary-green);
 }
@@ -117,4 +114,6 @@ nav img {
 .nav__menu a {
   text-decoration: none;
   color: white;
+  display: block;
+  padding: 0.7rem;
 }

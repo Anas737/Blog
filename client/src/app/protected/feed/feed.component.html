@@ -3,14 +3,11 @@
     <h4 class="feed__title">Feed</h4>
 
     <div class="posts-container">
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
-      <app-post></app-post>
+      <app-post
+        *ngFor="let post of posts; trackBy: trackByFn"
+        [post]="post"
+        (onFollowingToggle)="filterPosts(post.author.username)"
+      ></app-post>
     </div>
   </section>
 </div>

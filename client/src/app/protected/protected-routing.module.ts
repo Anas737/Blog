@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SharedModule } from '../shared';
-import { FeedComponent } from './feed/feed.component';
+import { AuthGuard } from '../core/guards';
 import { ProtectedComponent } from './protected.component';
 
 const routes: Routes = [
@@ -10,15 +9,20 @@ const routes: Routes = [
     component: ProtectedComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'feed',
+      },
+      {
         path: 'feed',
         loadChildren: () => import('./feed').then((m) => m.FeedModule),
       },
     ],
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), SharedModule],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class ProtectedRoutingModule {}

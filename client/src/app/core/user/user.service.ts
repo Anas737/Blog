@@ -21,16 +21,6 @@ export class UserService {
     return this.apiService.post('users', credentials);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.apiService.post('users/login', credentials).pipe(
-      map((response) => {
-        this.setUser(response.user);
-
-        return response;
-      })
-    );
-  }
-
   update(user: User): Observable<User> {
     return this.apiService.put('user', user).pipe(
       map((response) => {
@@ -49,6 +39,24 @@ export class UserService {
         return response;
       })
     );
+  }
+
+  login(credentials: any): Observable<any> {
+    return this.apiService.post('users/login', credentials).pipe(
+      map((response) => {
+        this.setUser(response.user);
+
+        return response;
+      })
+    );
+  }
+
+  follow(username: string) {
+    return this.apiService.post(`profiles/${username}/follow`);
+  }
+
+  unfollow(username: string) {
+    return this.apiService.delete(`profiles/${username}/unfollow`);
   }
 
   setUser(user: User) {

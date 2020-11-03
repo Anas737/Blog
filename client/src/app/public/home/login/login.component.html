@@ -1,10 +1,15 @@
 <app-modal>
   <div class="form-container">
-    <form class="form" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
       <!-- Close button -->
       <button type="button" (click)="closeLogIn()" class="form__close-btn">
         <i class="fas fa-times"></i>
       </button>
+
+      <!-- Login error -->
+      <div *ngIf="loginError" class="alert">
+        <p>{{ loginError }}</p>
+      </div>
 
       <!-- Email -->
       <fieldset class="form__email">
@@ -12,8 +17,8 @@
           type="email"
           name="email"
           id="email"
-          [(ngModel)]="email"
-          [attr.data-empty]="email ? 'false' : 'true'"
+          formControlName="email"
+          [attr.data-empty]="isEmailEmpty"
         />
         <label for="email">Email</label>
       </fieldset>
@@ -24,8 +29,8 @@
           type="password"
           name="password"
           id="password"
-          [(ngModel)]="password"
-          [attr.data-empty]="password ? 'false' : 'true'"
+          formControlName="password"
+          [attr.data-empty]="isPasswordEmpty"
         />
         <label for="password">Password</label>
       </fieldset>
