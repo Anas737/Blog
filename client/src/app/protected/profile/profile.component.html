@@ -1,0 +1,10 @@
+<div class="container">
+  <section id="profile">
+    <div class="posts-container">
+      <app-post
+        *ngFor="let post of posts; trackBy: trackByFn"
+        [post]="post"
+      ></app-post>
+    </div>
+  </section>
+</div>

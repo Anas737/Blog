@@ -35,6 +35,12 @@ export class ProfileController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':username/posts')
+  async findProfilePosts(@Param('username') toFindPostForUsername) {
+    return await this.usersService.findPosts(toFindPostForUsername);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post(':username/follow')
   async followProfile(
     @User() user: UserDocument,

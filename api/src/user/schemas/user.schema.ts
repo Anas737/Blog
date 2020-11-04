@@ -74,14 +74,12 @@ UserSchema.methods.toResponse = function(token = '') {
 
 UserSchema.methods.toProfile = function(currentUsername: string) {
   const response = {
-    profile: {
-      username: this.username,
-      bio: this.bio,
-      image: this.image,
-      following: this.followers.some(
-        follower => follower.username === currentUsername,
-      ),
-    },
+    username: this.username,
+    bio: this.bio,
+    image: this.image,
+    following: this.followers.some(
+      follower => follower.username === currentUsername,
+    ),
   };
 
   return response;

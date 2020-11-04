@@ -7,14 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: ProtectedComponent,
+
     children: [
       {
         path: '',
+        pathMatch: 'full',
         redirectTo: 'feed',
       },
       {
         path: 'feed',
         loadChildren: () => import('./feed').then((m) => m.FeedModule),
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile').then((m) => m.ProfileModule),
       },
     ],
     canActivate: [AuthGuard],

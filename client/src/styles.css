@@ -165,3 +165,11 @@ fieldset input[data-empty="false"] + label {
   color: red;
   font-size: 0.85rem;
 }
+
+.posts-container {
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

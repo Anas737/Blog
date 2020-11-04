@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserService } from 'src/app/core';
 import { Post } from 'src/app/core/models';
+import { ProfileService } from 'src/app/core/profile';
 
 @Component({
   selector: 'app-post',
@@ -14,7 +14,7 @@ export class PostComponent implements OnInit {
   @Output()
   onFollowingToggle = new EventEmitter<boolean>();
 
-  constructor(private userService: UserService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {}
 
@@ -22,11 +22,11 @@ export class PostComponent implements OnInit {
     const following = this.post.author.following;
     const authorUsername = this.post.author.username;
 
-    const $subscription = following
-      ? this.userService.unfollow(authorUsername)
-      : this.userService.follow(authorUsername);
+    const subscription$ = following
+      ? this.profileService.unfollow(authorUsername)
+      : this.profileService.follow(authorUsername);
 
-    $subscription.subscribe((profile) => {
+    subscription$.subscribe((profile) => {
       this.onFollowingToggle.emit(profile.following);
     });
   }

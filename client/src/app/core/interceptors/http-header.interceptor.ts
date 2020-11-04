@@ -26,7 +26,6 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
     if (token) {
       this.headersConfig['Authorization'] = `Bearer ${token}`;
     }
-    console.log(this.headersConfig);
 
     const request = req.clone({
       setHeaders: this.headersConfig,

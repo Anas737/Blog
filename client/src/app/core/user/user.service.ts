@@ -13,8 +13,12 @@ export class UserService {
 
   constructor(private apiService: ApiService) {}
 
-  get user() {
+  get user$() {
     return this.userSubject.asObservable().pipe(distinctUntilChanged());
+  }
+
+  get user() {
+    return this.userSubject.value;
   }
 
   register(credentials: any): Observable<any> {
@@ -49,14 +53,6 @@ export class UserService {
         return response;
       })
     );
-  }
-
-  follow(username: string) {
-    return this.apiService.post(`profiles/${username}/follow`);
-  }
-
-  unfollow(username: string) {
-    return this.apiService.delete(`profiles/${username}/unfollow`);
   }
 
   setUser(user: User) {
