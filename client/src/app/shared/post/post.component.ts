@@ -11,14 +11,20 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
+  @Input()
+  isCurrentUser: boolean;
+
+  @Input()
+  isForProfile: boolean;
+
   @Output()
-  onFollowingToggle = new EventEmitter<boolean>();
+  toggleFollowing = new EventEmitter<boolean>();
 
   constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {}
 
-  followingToggle() {
+  onToggleFollowing() {
     const following = this.post.author.following;
     const authorUsername = this.post.author.username;
 
@@ -27,7 +33,7 @@ export class PostComponent implements OnInit {
       : this.profileService.follow(authorUsername);
 
     subscription$.subscribe((profile) => {
-      this.onFollowingToggle.emit(profile.following);
+      this.toggleFollowing.emit(profile.following);
     });
   }
 }

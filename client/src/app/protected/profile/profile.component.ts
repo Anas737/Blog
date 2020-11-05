@@ -12,6 +12,7 @@ import { ProfileService } from '../../core/profile/profile.service';
 export class ProfileComponent implements OnInit {
   user: User;
   posts: Post[];
+  isCurrentUser: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,15 +28,38 @@ export class ProfileComponent implements OnInit {
 
     if (!profileUsername || profileUsername === currentUser.username) {
       this.user = currentUser;
+      this.isCurrentUser = true;
     } else {
       this.profileService.get(profileUsername).subscribe((_user) => {
         this.user = _user;
+        this.isCurrentUser = false;
       });
     }
 
     this.profileService.getByPosts(profileUsername).subscribe((_posts) => {
       this.posts = _posts;
     });
+  }
+
+  onToggleFollowing(following) {
+    console.log('following', following);
+
+    if (following === undefined) {
+      const following = this.user.following;
+      const username = this.user.username;
+
+      const subscription$ = following
+        ? this.profileService.unfollow(username)
+        : this.profileService.follow(username);
+
+      subscription$.subscribe((profile) => {
+        this.user.following = profile.following;
+
+        console.log(profile);
+      });
+    } else {
+      this.user.following = following;
+    }
   }
 
   trackByFn(index: number, post: Post) {

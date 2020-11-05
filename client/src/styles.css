@@ -71,6 +71,10 @@
   background-color: #dadada;
 }
 
+.image-container img {
+  width: 100%;
+}
+
 .card {
   width: 920px;
 

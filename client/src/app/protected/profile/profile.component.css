@@ -1,0 +1,29 @@
+.profile__user-info {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+  border: 2px solid var(--primary-purple);
+}
+
+.profile__user-info header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile__user-info header > div {
+  display: flex;
+  align-items: center;
+}
+.profile__user-info header > div h4 {
+  margin-left: 0.3rem;
+}
+
+.profile__bio {
+  margin-top: 1rem;
+}
+
+button {
+  font-weight: 500;
+}

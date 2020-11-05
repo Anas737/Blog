@@ -6,7 +6,9 @@
       <app-post
         *ngFor="let post of posts; trackBy: trackByFn"
         [post]="post"
-        (onFollowingToggle)="filterPosts(post.author.username)"
+        [isCurrentUser]="false"
+        [isForProfile]="false"
+        (toggleFollowing)="onUnfollow(post.author.username)"
       ></app-post>
     </div>
   </section>

@@ -13,7 +13,7 @@ nav {
   padding: 0.3rem 7rem;
 }
 
-nav img {
+nav > a img {
   width: 70%;
 }
 
@@ -56,10 +56,6 @@ nav img {
 
 .profile__imagecontainer {
   display: inline-block;
-}
-
-.profile__imagecontainer img {
-  width: 100%;
 }
 
 .profile__btn {

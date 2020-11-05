@@ -22,7 +22,7 @@ export class FeedComponent implements OnInit {
     return post.id;
   }
 
-  filterPosts(authorUsername) {
+  onUnfollow(authorUsername) {
     this.posts = this.posts.filter(
       (post) => post.author.username !== authorUsername
     );

@@ -14,7 +14,11 @@
       <span class="author__username">{{ post.author.username }}</span>
     </a>
 
-    <button class="author__follow-btn btn bg-green" (click)="followingToggle()">
+    <button
+      *ngIf="!isCurrentUser && !isForProfile"
+      class="author__follow-btn btn bg-green"
+      (click)="onToggleFollowing()"
+    >
       <span *ngIf="post.author.following; then unfollow; else follow"></span>
 
       <ng-template #follow>Follow</ng-template>

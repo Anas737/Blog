@@ -1,9 +1,38 @@
 <div class="container">
   <section id="profile">
+    <div class="profile__user-info card">
+      <header>
+        <div>
+          <div class="profile__imagecontainer image-container">
+            <img src="../../assets/images/user2.png" alt="user profile image" />
+          </div>
+          <h4 class="profile__username">{{ user.username }}</h4>
+        </div>
+
+        <button
+          *ngIf="!isCurrentUser"
+          class="btn bg-green"
+          (click)="onToggleFollowing()"
+        >
+          <span *ngIf="user.following; then unfollow; else follow"></span>
+
+          <ng-template #unfollow>Unfollow</ng-template>
+          <ng-template #follow>Follow</ng-template>
+        </button>
+      </header>
+
+      <section class="profile__bio">
+        {{ user.bio }}
+      </section>
+    </div>
+
     <div class="posts-container">
       <app-post
         *ngFor="let post of posts; trackBy: trackByFn"
         [post]="post"
+        [isCurrentUser]="isCurrentUser"
+        [isForProfile]="true"
+        (toggleFollowing)="onToggleFollowing($event)"
       ></app-post>
     </div>
   </section>
