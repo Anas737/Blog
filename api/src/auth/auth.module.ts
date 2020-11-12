@@ -15,7 +15,6 @@ import { UserModule } from '../user/user.module';
         expiresIn: process.env.EXPIRES_IN,
       },
     }),
-
     UserModule,
   ],
   controllers: [AuthController],

@@ -1,5 +1,5 @@
 <div class="container">
-  <section id="profile">
+  <section *ngIf="user" id="profile">
     <div class="profile__user-info card">
       <header>
         <div>
@@ -10,9 +10,18 @@
         </div>
 
         <button
-          *ngIf="!isCurrentUser"
+          *ngIf="isCurrentUser"
           class="btn bg-green"
+          [routerLink]="['../../post', 'new']"
+        >
+          Add new post
+        </button>
+
+        <button
+          *ngIf="!isCurrentUser"
+          [disabled]="isSubmitting"
           (click)="onToggleFollowing()"
+          class="btn bg-green"
         >
           <span *ngIf="user.following; then unfollow; else follow"></span>
 
@@ -30,6 +39,7 @@
       <app-post
         *ngFor="let post of posts; trackBy: trackByFn"
         [post]="post"
+        [user]="user"
         [isCurrentUser]="isCurrentUser"
         [isForProfile]="true"
         (toggleFollowing)="onToggleFollowing($event)"

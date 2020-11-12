@@ -8,13 +8,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { User } from './decorators/user.decorator';
-import { UserDocument } from './schemas/user.schema';
-import { UsersService } from './users.service';
+import { User } from 'src/user/decorators/user.decorator';
+import { UserDocument } from 'src/user/schemas/user.schema';
+import { ProfilesService } from './profiles.service';
 
 @Controller('profiles')
-export class ProfileController {
-  constructor(private readonly usersService: UsersService) {}
+export class ProfilesController {
+  constructor(private profilesService: ProfilesService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get(':username')
@@ -27,17 +27,11 @@ export class ProfileController {
       res.redirect('/api/user');
     }
 
-    const foundUser = await this.usersService.findOne(toFindUsername);
+    const foundUser = await this.profilesService.findOne(toFindUsername);
 
     const profile = foundUser.toProfile(user.username);
 
     res.send(profile);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':username/posts')
-  async findProfilePosts(@Param('username') toFindPostForUsername) {
-    return await this.usersService.findPosts(toFindPostForUsername);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -46,7 +40,10 @@ export class ProfileController {
     @User() user: UserDocument,
     @Param('username') tofollowUsername: string,
   ) {
-    const followedUser = await this.usersService.follow(user, tofollowUsername);
+    const followedUser = await this.profilesService.follow(
+      user,
+      tofollowUsername,
+    );
 
     return followedUser.toProfile(user.username);
   }
@@ -57,7 +54,7 @@ export class ProfileController {
     @User() user: UserDocument,
     @Param('username') toUnfollowUsername: string,
   ) {
-    const unfollowedUser = await this.usersService.unfollow(
+    const unfollowedUser = await this.profilesService.unfollow(
       user,
       toUnfollowUsername,
     );

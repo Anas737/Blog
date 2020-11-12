@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './core';
+import { UserService } from './core';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,11 @@ import { AuthService } from './core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    console.log('attemptAuth');
-    this.authService.attemptAuth();
+    this.userService.authenticate();
+
+    console.log('Test');
   }
 }

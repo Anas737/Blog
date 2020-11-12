@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidator, EmailValidator } from 'src/app/core/validators';
-import { AuthService } from '../../../core';
+import { UserService } from '../../../core';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
       ...this.signUpForm.value,
     };
 
-    this.authService.register(user).subscribe((response) => {
+    this.userService.register(user).subscribe((response) => {
       console.log(response);
 
       this.closeSignUp();

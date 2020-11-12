@@ -7,15 +7,16 @@
   </article>
 
   <aside class="post__author">
-    <a href="#">
+    <a [routerLink]="['/profile', author.username]">
       <span class="author__imagecontainer image-container">
         <img src="../../assets/images/user2.png" alt="user profile image" />
       </span>
-      <span class="author__username">{{ post.author.username }}</span>
+      <span class="author__username">{{ author.username }}</span>
     </a>
 
     <button
-      *ngIf="!isCurrentUser && !isForProfile"
+      *ngIf="canBeFollowed"
+      [disabled]="isSubmitting"
       class="author__follow-btn btn bg-green"
       (click)="onToggleFollowing()"
     >

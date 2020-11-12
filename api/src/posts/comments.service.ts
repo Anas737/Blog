@@ -1,16 +1,16 @@
 import { Model } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Comment, CommentDocument } from 'src/post/schemas/comment.schema';
 import { UserDocument } from 'src/user/schemas/user.schema';
 import { PostDocument } from './schemas/post.schema';
 import { CreateCommentDTO } from './dto/create-comment.dto';
+import { Comment, CommentDocument } from './schemas/comment.schema';
 
 @Injectable()
 export class CommentsService {
   constructor(
     @InjectModel(Comment.name)
-    private readonly commentModel: Model<CommentDocument>,
+    private commentModel: Model<CommentDocument>,
   ) {}
 
   throwCommentDoesntExist() {

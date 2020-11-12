@@ -1,0 +1,17 @@
+#post {
+  margin-top: 10px;
+}
+
+.post__body {
+  margin-top: 5px;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 300px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}

@@ -1,23 +1,23 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/user/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from 'src/auth/payloads/jwt-payload';
 import { LoginUserDTO } from 'src/user/dto/login-user.dto';
 import { UserDocument } from 'src/user/schemas/user.schema';
 
 import * as bcrypt from 'bcrypt';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
   async login(userData: LoginUserDTO): Promise<UserDocument> {
     const { email, password } = userData;
 
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.userService.findByEmail(email);
 
     const isPasswordMatching = await bcrypt.compare(password, user.password);
 
@@ -35,6 +35,6 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtPayload): Promise<UserDocument> {
-    return this.usersService.findByPayload(payload);
+    return this.userService.findByPayload(payload);
   }
 }

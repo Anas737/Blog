@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core';
+import { UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +10,12 @@ import { AuthService } from 'src/app/core';
 export class NavbarComponent implements OnInit {
   opened: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {}
 
   logout() {
-    this.authService.purgeAuth();
+    this.userService.purgeAuth();
   }
 
   triggerMenu() {

@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core';
 import { Post, User } from 'src/app/core/models';
-import { CoreModule } from '../core.module';
+import { ProfileModule } from './profile.module';
 
-@Injectable({
-  providedIn: CoreModule,
-})
+@Injectable()
 export class ProfileService {
   constructor(private apiService: ApiService) {}
 
   get(username: string): Observable<User> {
     return this.apiService.get(`profiles/${username}`);
-  }
-
-  getByPosts(username: string): Observable<Post[]> {
-    return this.apiService.get(`profiles/${username}/posts`);
   }
 
   follow(username: string) {

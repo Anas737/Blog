@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Post } from 'src/app/core/models';
-import { ProfileService } from 'src/app/core/profile';
+import { Post, User } from 'src/app/core/models';
+import { ProfileService } from 'src/app/protected/profile/profile.service';
 
 @Component({
   selector: 'app-post',
@@ -12,6 +12,9 @@ export class PostComponent implements OnInit {
   post: Post;
 
   @Input()
+  user: User;
+
+  @Input()
   isCurrentUser: boolean;
 
   @Input()
@@ -20,11 +23,23 @@ export class PostComponent implements OnInit {
   @Output()
   toggleFollowing = new EventEmitter<boolean>();
 
+  isSubmitting: boolean = false;
+
   constructor(private profileService: ProfileService) {}
+
+  get canBeFollowed(): boolean {
+    return !this.isCurrentUser && !this.isForProfile;
+  }
+
+  get author(): User {
+    return this.user || this.post.author;
+  }
 
   ngOnInit(): void {}
 
   onToggleFollowing() {
+    this.isSubmitting = true;
+
     const following = this.post.author.following;
     const authorUsername = this.post.author.username;
 
@@ -34,6 +49,8 @@ export class PostComponent implements OnInit {
 
     subscription$.subscribe((profile) => {
       this.toggleFollowing.emit(profile.following);
+
+      this.isSubmitting = false;
     });
   }
 }

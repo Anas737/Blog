@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Add Post</h1>
+  <form [formGroup]="postForm" class="form" (ngSubmit)="submit()">
+    <fieldset>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        formControlName="title"
+        [attr.data-empty]="isTitleEmpty"
+      />
+      <label for="title">Title</label>
+    </fieldset>
+
+    <section id="post">
+      <h3>Post</h3>
+      <div class="post__body">
+        <ckeditor [editor]="Editor" formControlName="post"></ckeditor>
+      </div>
+    </section>
+
+    <div class="buttons">
+      <button type="submit" class="btn bg-green">Create</button>
+    </div>
+  </form>
+</div>

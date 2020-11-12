@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core';
+import { UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {}
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       ...this.loginForm.value,
     };
 
-    this.authService.login(user).subscribe(
+    this.userService.login(user).subscribe(
       () => {
         this.router.navigateByUrl('/feed');
       },

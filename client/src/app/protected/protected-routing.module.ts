@@ -22,6 +22,10 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./profile').then((m) => m.ProfileModule),
       },
+      {
+        path: 'post',
+        loadChildren: () => import('./post').then((m) => m.PostModule),
+      },
     ],
     canActivate: [AuthGuard],
   },

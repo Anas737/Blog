@@ -1,18 +1,19 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Post, PostDocument } from 'src/post/schemas/post.schema';
-import { CreatePostDTO } from 'src/post/dto/create-post.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UserDocument } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { CommentsService } from './comments.service';
 import { CommentDocument } from './schemas/comment.schema';
 import { CreateCommentDTO } from './dto/create-comment.dto';
+import { Post, PostDocument } from './schemas/post.schema';
+import { CreatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectModel(Post.name) private readonly postModel: Model<PostDocument>,
-    private readonly commentsService: CommentsService,
+    @InjectModel(Post.name) private postModel: Model<PostDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private commentsService: CommentsService,
   ) {}
 
   /*
@@ -38,6 +39,9 @@ export class PostsService {
       );
   }
 
+  throwUserDoesntExit() {
+    throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
+  }
   /*
    * Posts methods
    */
@@ -49,12 +53,24 @@ export class PostsService {
     return post;
   }
 
-  async findByAuthor(authorId: string): Promise<PostDocument[]> {
-    return this.postModel.find({ author: authorId });
-  }
-
   async findAll(): Promise<PostDocument[]> {
     return this.postModel.find().populate('author', 'username image');
+  }
+
+  async query(query: any): Promise<PostDocument[]> {
+    let user: UserDocument = null;
+
+    if (query.username) {
+      user = await this.userModel.findOne({ username: query.username });
+    }
+
+    if (!user) this.throwUserDoesntExit();
+
+    return this.postModel
+      .find({ author: user.id })
+      .sort({ createdAt: 'DESC' })
+      .skip(parseInt(query.offset))
+      .limit(parseInt(query.limit));
   }
 
   async findFeed(user: UserDocument, query: any): Promise<PostDocument[]> {
@@ -64,7 +80,7 @@ export class PostsService {
 
     const ids = followings.map(following => following.id);
 
-    return await this.postModel
+    return this.postModel
       .find({
         author: {
           $in: ids,
