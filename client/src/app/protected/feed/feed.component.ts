@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/core/models';
-import { PostsService } from 'src/app/shared/post/posts.service';
+import { PostsService } from 'src/app/protected/post/posts.service';
 
 @Component({
   selector: 'app-feed',
@@ -17,13 +17,11 @@ export class FeedComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.postsSubscription = this.postsService.posts$.subscribe((_posts) => {
       this.posts = _posts;
-
-      console.log(this.posts);
     });
   }
 
   trackByFn(index: number, post: Post) {
-    return post.id;
+    return post._id;
   }
 
   onUnfollow(authorUsername) {

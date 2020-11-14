@@ -25,6 +25,8 @@ export class ProfilesController {
   ) {
     if (user.username === toFindUsername) {
       res.redirect('/api/user');
+
+      return;
     }
 
     const foundUser = await this.profilesService.findOne(toFindUsername);

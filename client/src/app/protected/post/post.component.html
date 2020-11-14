@@ -20,7 +20,12 @@
     </section>
 
     <div class="buttons">
-      <button type="submit" class="btn bg-green">Create</button>
+      <button type="submit" class="btn bg-green">
+        <span *ngIf="isForEditting; then edit; else create"></span>
+
+        <ng-template #edit>Edit</ng-template>
+        <ng-template #create>Create</ng-template>
+      </button>
     </div>
   </form>
 </div>

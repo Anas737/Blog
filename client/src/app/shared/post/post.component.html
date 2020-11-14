@@ -1,9 +1,7 @@
 <section class="post-container card">
   <article class="post">
     <h2 class="post__title">{{ post.title }}</h2>
-    <p class="post__content">
-      {{ post.content }}
-    </p>
+    <div class="post__content" [innerHTML]="post.content"></div>
   </article>
 
   <aside class="post__author">
@@ -25,13 +23,44 @@
       <ng-template #follow>Follow</ng-template>
       <ng-template #unfollow>Unfollow</ng-template>
     </button>
+
+    <div *ngIf="isCurrentUser">
+      <button class="btn bg-green" (click)="onDeletePost()">Delete</button>
+      <button class="btn bg-green" (click)="onEditPost()">Edit</button>
+    </div>
   </aside>
 
   <footer>
     <ul>
-      <li>X Comments</li>
-      <li>Share</li>
-      <li>Favourite</li>
+      <li class="btn" (click)="onOpenComments()">X Comments</li>
+      <li class="btn">Share</li>
+      <li class="btn">Favourite</li>
     </ul>
   </footer>
+
+  <section class="comments__container" *ngIf="isCommentsOpened">
+    <form [formGroup]="commentForm" (ngSubmit)="onAddComment()">
+      <fieldset class="comment__input">
+        <input
+          type="text"
+          name="comment"
+          id="comment"
+          placeholder="Add a comment..."
+          formControlName="comment"
+        />
+      </fieldset>
+    </form>
+
+    <div *ngIf="isLoadingComments; then loading; else comments"></div>
+
+    <ng-template #loading>Loading...</ng-template>
+    <ng-template #comments>
+      <app-comment
+        *ngFor="let comment of post.comments; trackBy: trackByFn"
+        [comment]="comment"
+        class="comment"
+      >
+      </app-comment>
+    </ng-template>
+  </section>
 </section>

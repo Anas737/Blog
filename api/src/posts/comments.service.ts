@@ -18,7 +18,9 @@ export class CommentsService {
   }
 
   async findOne(commentId: string): Promise<CommentDocument> {
-    const comment = await this.commentModel.findById(commentId);
+    const comment = await this.commentModel
+      .findById(commentId)
+      .populate('commenter', 'username image');
 
     if (!comment) this.throwCommentDoesntExist();
 
@@ -46,7 +48,9 @@ export class CommentsService {
     commenter.comments.push(newComment.id);
     await commenter.save();
 
-    return newComment.save();
+    await newComment.save();
+
+    return this.findOne(newComment.id);
   }
 
   async update(
@@ -57,7 +61,9 @@ export class CommentsService {
 
     const updated = Object.assign(toUpdate, commentData);
 
-    return updated.save();
+    await updated.save();
+
+    return this.findOne(toUpdate.id);
   }
 
   async delete(commentId: string): Promise<CommentDocument> {

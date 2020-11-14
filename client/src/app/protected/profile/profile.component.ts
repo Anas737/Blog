@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/core';
 import { Post, User } from 'src/app/core/models';
-import { PostsService } from '../../shared/post/posts.service';
+import { PostsService } from '../post/posts.service';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -35,7 +34,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.isCurrentUser =
         this.user.username === this.userService.currentUser.username;
     });
-
     this.postsSubscription = this.postsService.posts$.subscribe((_posts) => {
       this.posts = _posts;
     });
@@ -63,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   trackByFn(index: number, post: Post) {
-    return post.id;
+    return post._id;
   }
 
   ngOnDestroy(): void {

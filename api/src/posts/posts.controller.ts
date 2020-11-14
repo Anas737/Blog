@@ -34,9 +34,18 @@ export class PostsController {
     return response;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('posts')
-  async query(@Query() query: any) {
-    return await this.postsService.query(query);
+  async query(@User() user: UserDocument, @Query() query: any) {
+    const posts = await this.postsService.query(query);
+
+    const response = [];
+
+    posts.forEach(post => {
+      response.push(post.toResponse(user.username));
+    });
+
+    return response;
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { UserService } from 'src/app/core';
-import { PostsService } from 'src/app/shared/post/posts.service';
+import { Post } from 'src/app/core/models';
+import { PostsService } from 'src/app/protected/post/posts.service';
 
 @Component({
   selector: 'app-post',
@@ -15,11 +18,15 @@ export class PostComponent implements OnInit {
 
   postForm: FormGroup;
 
+  isForEditting: boolean = false;
+  postId: string = '';
+
   constructor(
+    private userService: UserService,
+    private postsService: PostsService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService,
-    private postsService: PostsService
+    private activatedRoute: ActivatedRoute
   ) {}
 
   get title() {
@@ -35,22 +42,39 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      post: ['', Validators.required],
+    this.activatedRoute.data.subscribe((data: { post: Post }) => {
+      const post = data.post;
+
+      if (post.title !== '' && post.content !== '') {
+        this.isForEditting = true;
+        this.postId = post._id;
+      }
+
+      this.postForm = this.formBuilder.group({
+        title: [post.title, Validators.required],
+        post: [post.content, Validators.required],
+      });
     });
   }
 
   submit(): void {
-    this.postsService
-      .create({
-        title: this.title.value,
-        content: this.post.value,
-      })
-      .subscribe();
+    let post$ = of(null);
 
-    this.router.navigateByUrl(
-      `profile/${this.userService.currentUser.username}`
-    );
+    const postData = {
+      title: this.title.value,
+      content: this.post.value,
+    };
+
+    if (this.isForEditting) {
+      post$ = this.postsService.update(this.postId, postData);
+    } else {
+      post$ = this.postsService.create(postData);
+    }
+
+    post$.subscribe(() => {
+      this.router.navigateByUrl(
+        `profile/${this.userService.currentUser.username}`
+      );
+    });
   }
 }

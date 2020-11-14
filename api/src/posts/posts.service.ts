@@ -68,6 +68,7 @@ export class PostsService {
 
     return this.postModel
       .find({ author: user.id })
+      .populate('author', 'username image followers')
       .sort({ createdAt: 'DESC' })
       .skip(parseInt(query.offset))
       .limit(parseInt(query.limit));

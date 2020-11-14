@@ -4,11 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core';
 import { Comment, Post } from 'src/app/core/models';
-import { SharedModule } from '../shared.module';
 
-@Injectable({
-  providedIn: SharedModule,
-})
+@Injectable()
 export class PostsService {
   private postsSubject: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>(
     [] as Post[]
@@ -62,33 +59,18 @@ export class PostsService {
   }
 
   create(postData): Observable<Post> {
-    return this.apiService.post('posts/create', postData).pipe(
-      tap((createdPost) => {
-        const posts = [...this.postsSubject.value];
-
-        this.postsSubject.next([...posts, createdPost]);
-      })
-    );
+    return this.apiService.post('posts/create', postData);
   }
 
   update(postId: string, postData): Observable<Post> {
-    return this.apiService.put(`posts/${postId}`, postData).pipe(
-      tap((updatedPost) => {
-        const posts = [...this.postsSubject.value];
-
-        const postIndex = posts.findIndex((_post) => _post.id === postId);
-        posts[postIndex] = updatedPost;
-
-        this.postsSubject.next(posts);
-      })
-    );
+    return this.apiService.put(`posts/${postId}`, postData);
   }
 
   delete(postId: string): Observable<Post> {
     return this.apiService.delete(`posts/${postId}`).pipe(
       tap(() => {
         const posts = this.postsSubject.value.filter(
-          (_post) => _post.id !== postId
+          (_post) => _post._id !== postId
         );
 
         this.postsSubject.next(posts);
@@ -97,7 +79,15 @@ export class PostsService {
   }
 
   getComments(postId: string): Observable<Comment[]> {
-    return this.apiService.get(`posts/${postId}/comments`);
+    return this.apiService.get(`posts/${postId}/comments`).pipe(
+      tap((_comments) => {
+        const posts = [...this.postsSubject.value];
+        const postIndex = posts.findIndex((_post) => _post._id === postId);
+        posts[postIndex].comments.push(..._comments);
+
+        this.postsSubject.next(posts);
+      })
+    );
   }
 
   addComment(postId: string, commentData): Observable<Comment> {
@@ -107,7 +97,7 @@ export class PostsService {
         tap((_comment) => {
           const posts = [...this.postsSubject.value];
 
-          const postIndex = posts.findIndex((_post) => _post.id === postId);
+          const postIndex = posts.findIndex((_post) => _post._id === postId);
           posts[postIndex].comments.push(_comment);
 
           this.postsSubject.next(posts);
@@ -121,10 +111,10 @@ export class PostsService {
         const posts = [...this.postsSubject.value];
 
         const postIndex = posts.findIndex(
-          (_post) => _post.id === _comment.post.id
+          (_post) => _post._id === _comment.post
         );
         const commentIndex = posts[postIndex].comments.findIndex(
-          (comment) => comment.id === _comment.id
+          (comment) => comment._id === _comment._id
         );
 
         posts[postIndex].comments[commentIndex] = _comment;
@@ -137,14 +127,16 @@ export class PostsService {
   deleteComment(commentId: string) {
     return this.apiService.delete(`comments/${commentId}`).pipe(
       tap((_comment: Comment) => {
+        console.log(_comment);
+
         const posts = [...this.postsSubject.value];
 
         const postIndex = posts.findIndex(
-          (_post) => _post.id === _comment.post.id
+          (_post) => _post._id === _comment.post
         );
 
         posts[postIndex].comments = posts[postIndex].comments.filter(
-          (comment) => comment.id !== _comment.id
+          (comment) => comment._id !== _comment._id
         );
 
         this.postsSubject.next(posts);

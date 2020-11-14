@@ -1,0 +1,33 @@
+<div class="comment__container">
+  <span class="image-container">
+    <img src="../../../../assets//images/user2.png" />
+  </span>
+  <div class="comment">
+    <header>
+      <h5>{{ comment.commenter.username }}</h5>
+      <span
+        *ngIf="isCurrentUser"
+        class="comment__menu-toggle"
+        (click)="onToggleMenu($event)"
+        ><i class="fas fa-ellipsis-h"></i
+      ></span>
+      <div
+        class="comment__menu"
+        [ngClass]="{ 'comment__menu--displayed': isMenuDisplayed }"
+      >
+        <ul>
+          <li (click)="onDelete()">
+            <i class="fas fa-trash"></i><span>Delete comment</span>
+          </li>
+          <li (click)="onEdit()">
+            <i class="far fa-edit"></i><span>Edit comment</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <p class="comment__content">
+      {{ comment.content }}
+    </p>
+  </div>
+</div>

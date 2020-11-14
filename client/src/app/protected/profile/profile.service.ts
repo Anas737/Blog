@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core';
 import { Post, User } from 'src/app/core/models';
-import { ProfileModule } from './profile.module';
 
 @Injectable()
 export class ProfileService {

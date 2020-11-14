@@ -42,6 +42,7 @@ export const PostSchema = SchemaFactory.createForClass(Post);
 
 PostSchema.methods.toResponse = function(currentUsername: string) {
   const response = {
+    _id: this._id,
     title: this.title,
     content: this.content,
     createdAt: this.createdAt,
@@ -53,7 +54,7 @@ PostSchema.methods.toResponse = function(currentUsername: string) {
         follower => follower.username === currentUsername,
       ),
     },
-    comments: this.comments,
+    comments: [],
   };
 
   return response;

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/guards';
+import { PostResolver } from './post/post-resolver.service';
 import { ProtectedComponent } from './protected.component';
 
 const routes: Routes = [
@@ -25,6 +26,9 @@ const routes: Routes = [
       {
         path: 'post',
         loadChildren: () => import('./post').then((m) => m.PostModule),
+        resolve: {
+          post: PostResolver,
+        },
       },
     ],
     canActivate: [AuthGuard],

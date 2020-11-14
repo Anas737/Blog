@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ProfileModule } from './profile.module';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { User } from '../../core/models/index';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ProfileService } from './profile.service';
-import { switchMap } from 'rxjs/operators';
-import { PostsService } from '../../shared/post/posts.service';
+import { concatMap, switchMap } from 'rxjs/operators';
+import { PostsService } from '../post/posts.service';
 
 @Injectable()
 export class ProfileResolver implements Resolve<User> {
@@ -18,7 +18,7 @@ export class ProfileResolver implements Resolve<User> {
     const username = route.params['username'];
 
     return this.postsService.getByAuthor(username).pipe(
-      switchMap(() => {
+      concatMap(() => {
         return this.profileService.get(username);
       })
     );
